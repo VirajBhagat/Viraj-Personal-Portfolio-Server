@@ -8,7 +8,7 @@ export async function searchResume(queryEmbedding) {
         path: "embedding",
         queryVector: queryEmbedding,
         numCandidates: 100,
-        limit: 3
+        limit: 10
       }
     }
   ]);

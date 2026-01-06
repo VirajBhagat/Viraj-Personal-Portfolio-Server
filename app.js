@@ -3,8 +3,11 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import ingestRoute from "./routes/ingest.js";
-import chatRoute from "./routes/chat.js";
+// import openaiIngestRoute from "./routes/openai/ingest.js";
+// import openaiChatRoute from "./routes/openai/chat.js";
+
+import geminiIngestRoute from "./routes/gemini/ingest.js";
+import geminiChatRoute from "./routes/gemini/chat.js";
 
 dotenv.config();
 
@@ -16,9 +19,15 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error(err));
 
-app.use("/api/ingest", ingestRoute);
-app.use("/api/chat", chatRoute);
+// Open AI
+// app.use("/api/openai/ingest", openaiIngestRoute);
+// app.use("/api/openai/chat", openaiChatRoute);
 
+// Gemini AI
+app.use("/api/gemini/ingest", geminiIngestRoute);
+app.use("/api/gemini/chat", geminiChatRoute);
+
+console.log("Server set!");
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);
 });

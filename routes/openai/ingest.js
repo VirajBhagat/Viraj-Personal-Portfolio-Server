@@ -1,6 +1,6 @@
 import express from "express";
-import ResumeChunk from "../models/ResumeChunk.js";
-import openai from "../services/openai.js";
+import ResumeChunk from "../../models/ResumeChunk.js";
+import openai from "../../services/openai.js";
 
 const router = express.Router();
 
