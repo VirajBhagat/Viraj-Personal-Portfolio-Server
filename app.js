@@ -17,7 +17,7 @@ app.use(express.json());
 
 mongoose
   .connect(process.env.MONGO_URI, {
-    serverSelectionTimeoutMS: 10000, // fast fail on cold starts
+    serverSelectionTimeoutMS: 30000, // fast fail on cold starts
     socketTimeoutMS: 20000, // keep it lower for serverless
     maxPoolSize: 5,
   })
