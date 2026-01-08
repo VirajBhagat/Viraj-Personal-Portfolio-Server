@@ -1,11 +1,14 @@
 import express from "express";
 import { embeddingModel, chatModel } from "../../services/gemini.js";
 import { searchResume } from "../../services/vectorSearch.js";
+import connectDB from "../../config/db.js";
 
 const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
+    await connectDB();
+
     const { question } = req.body;
     if (!question) return res.status(400).json({ error: "Question required" });
 
