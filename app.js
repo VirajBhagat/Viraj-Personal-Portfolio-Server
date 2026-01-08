@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import connectDB from "./config/db.js";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -15,14 +16,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose
-  .connect(process.env.MONGO_URI, {
-    serverSelectionTimeoutMS: 10000, // fast fail on cold starts
-    socketTimeoutMS: 20000, // keep it lower for serverless
-    maxPoolSize: 5,
-  })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error(err));
+// Connect MongoDB
+connectDB();
 
 // Open AI
 // app.use("/api/openai/ingest", openaiIngestRoute);
