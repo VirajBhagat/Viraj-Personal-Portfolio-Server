@@ -1,5 +1,5 @@
-import express from "express";
 import mongoose from "mongoose";
+import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
@@ -34,6 +34,18 @@ app.use("/api/gemini/chat", geminiChatRoute);
 
 app.get("/", (req, res) => {
   res.send("Server is live!");
+  const mongoStates = {
+    0: "disconnected",
+    1: "connected",
+    2: "connecting",
+    3: "disconnecting",
+  };
+
+  res.json({
+    server: "live",
+    mongoDB: mongoStates[mongoose.connection.readyState],
+    time: new Date().toISOString(),
+  });
 });
 
 console.log("Server set!");
