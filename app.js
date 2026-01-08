@@ -15,9 +15,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose
+  .connect(process.env.MONGO_URI, {
+    serverSelectionTimeoutMS: 10000, // fast fail on cold starts
+    socketTimeoutMS: 20000, // keep it lower for serverless
+    maxPoolSize: 5,
+  })
   .then(() => console.log("MongoDB connected"))
-  .catch(err => console.error(err));
+  .catch((err) => console.error(err));
 
 // Open AI
 // app.use("/api/openai/ingest", openaiIngestRoute);
@@ -27,8 +32,8 @@ mongoose.connect(process.env.MONGO_URI)
 app.use("/api/gemini/ingest", geminiIngestRoute);
 app.use("/api/gemini/chat", geminiChatRoute);
 
-app.get('/', (req, res)=>{
-    res.send('Server is live!');
+app.get("/", (req, res) => {
+  res.send("Server is live!");
 });
 
 console.log("Server set!");
