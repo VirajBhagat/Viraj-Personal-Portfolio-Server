@@ -27,6 +27,10 @@ mongoose.connect(process.env.MONGO_URI)
 app.use("/api/gemini/ingest", geminiIngestRoute);
 app.use("/api/gemini/chat", geminiChatRoute);
 
+app.get('/', (req, res)=>{
+    res.send('Server is live!');
+});
+
 console.log("Server set!");
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);
