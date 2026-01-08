@@ -33,7 +33,8 @@ app.use("/api/gemini/ingest", geminiIngestRoute);
 app.use("/api/gemini/chat", geminiChatRoute);
 
 app.get("/", (req, res) => {
-  res.send("Server is live!");
+  console.log("Server is live!");
+
   const mongoStates = {
     0: "disconnected",
     1: "connected",
@@ -43,7 +44,7 @@ app.get("/", (req, res) => {
 
   res.json({
     server: "live",
-    mongoDB: mongoStates[mongoose.connection.readyState],
+    mongoDB: mongoStates[mongoose.connection.readyState] || "unknown",
     time: new Date().toISOString(),
   });
 });
